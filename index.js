@@ -5,24 +5,18 @@ var template = require('lodash/string/template');
 var fs = require('fs');
 var moment = require('moment');
 
-
-
 module.exports = function (browserify, opts) {
 
-  var pkg = {};
+  var pkg = fs.readFileSync(opts.pkg);
   var data = opts.file ? fs.readFileSync(opts.file) : opts.template;
   var compiled = template(data);
 
-
-
   /**
    * Get data from package.json
-   */
   browserify.on('package', function (p) {
     pkg = p;
   });
-
-
+  */
 
   /**
    * Add banner to bundle
