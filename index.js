@@ -9,7 +9,7 @@ var moment = require('moment');
 
 module.exports = function (browserify, opts) {
 
-  var pkg = {};
+  var pkg = opts.pkg ? fs.readFileSync(opts.pkg) : null;
   var data = opts.file ? fs.readFileSync(opts.file) : opts.template;
   var compiled = template(data);
 
@@ -19,7 +19,8 @@ module.exports = function (browserify, opts) {
    * Get data from package.json
    */
   browserify.on('package', function (p) {
-    pkg = p;
+    if (pkg == void(0))
+      pkg = p;
   });
 
 
